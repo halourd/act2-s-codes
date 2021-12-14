@@ -14,7 +14,7 @@ class BinaryTree:
         self.left = None
         self.right = None
 
-
+    # Insert new data into a binary search tree
     def insert(self, value):
         if self.data is None:
             self.data = value
@@ -31,26 +31,41 @@ class BinaryTree:
                 else:
                     self.right.insert(value)
 
-    def rec_search(self, node, key):
+    # Search for specific data in a binary search tree
+    def iter_search(self, node, key):
         # node = self.data
-        if (node == None or key == node.data):
-            return node
+        while node is not None and key != node.data:
+            if key < node.data:
+                node = node.left
+            else:
+                node = node.right
+        return node.data
 
-        if key < node.data:
-            return BinaryTree.rec_search(node.left, key)
-        else:
-            return BinaryTree.rec_search(node.right, key)
+    def find_max(self, node):
+        if node is None:
+            return 0
+        node = self.right
+        while node.right is not None:
+            node = node.right
+        return node.data
         
+    def find_min(self, node):
+        if node is None:
+            return 0
+        node = self.left
+        while node.left is not None:
+            node = node.left
+        return node.data
 
-
-    def find_max(self):
-        pass
-
-    def find_min(self):
-        pass
-
-    def measure_height(self):
-        pass
+    def measure_height(self, node):
+        if node is None:
+            return -1
+        left_height = BinaryTree.measure_height(node.left)
+        right_height = BinaryTree.measure_height(node.right)
+        if left_height > right_height:
+            return left_height + 1
+        else:
+            return right_height + 1
 
     def delete(self, node, key):
         pass
@@ -60,8 +75,16 @@ bst1 = BinaryTree(50)
 bst1.insert(49)
 bst1.insert(51)
 bst1.insert(48)
+bst1.insert(1)
 bst1.insert(47)
+bst1.insert(112)
+bst1.insert(109)
+bst1.insert(56)
+# print(bst1.iter_search(bst1, 47))
+# print(bst1.iter_search(bst1, 56))
+print('Maximum value:', bst1.find_max(bst1))
+print('Minimum value:', bst1.find_min(bst1))
 
-print(bst1.rec_search(bst1, 48))
+print(bst1.measure_height(bst1))
 
 
