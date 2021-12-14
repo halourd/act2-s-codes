@@ -20,7 +20,7 @@ class BinaryTree:
 
     def insert(self, value):
         if self.data is None:
-            self.data = value
+            self.data = value   
         else:
             # Left = if value is smaller than current data
             if value < self.data:
